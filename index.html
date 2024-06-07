@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <link rel="stylesheet" href="assets/css/custom-css.css">
+    <script src="https://kit.fontawesome.com/eacd88b6a6.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <header>
+        <div class="date-info__container">
+            <p>Today's Task</p>
+            <p>Monday, 4 Dec</p>
+        </div>
+
+        <div class="task-add__container">
+            <button>Add Task <i class="fa-solid fa-plus"></i></button>
+        </div>
+    </header>
+
+    <main>
+        <nav>
+            <ul class="main__list">
+                <li class="list__item active">
+                    <p>All</p><span>6</span>
+                </li>
+                <li class="list__item">
+                    <p>To-Do</p> <span>3</span>
+                </li>
+                <li class="list__item">
+                    <p>Done</p> <span>5</span>
+                </li>
+                <li class="list__item">
+                    <p>Deleted</p> <span>8</span>
+                </li>
+            </ul>
+        </nav>
+        <div class="task__container">
+            <div class="task__card task__card--unfinished">
+                <div class="task__body">
+                    <div class="task__details">
+                        <p class="task__name">Client Feedback</p>
+                        <p class="task__date">December 2, 2000</p>
+                        <p class="task__time">10:00AM - 11:00PM</p>
+                        <div class="task__buttons">
+                            <button>Done</button>
+                            <button>Archive</button>
+                        </div>
+                    </div>
+                    <div class="task__status">
+                        <div class="task__circle">
+                            <p>Pending</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="task__card task__card--finished">
+                <div class="task__body">
+                    <div class="task__details">
+                        <p class="task__name">Client Feedback</p>
+                        <p class="task__date">December 2, 2000</p>
+                        <p class="task__time">10:00AM - 11:00PM</p>
+                    </div>
+                    <div class="task__status">
+                        <div class="task__circle task__circle">
+                            <p>Complete</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="task__card task__card--deleted">
+                <div class="task__body">
+                    <div class="task__details">
+                        <p class="task__name">Client Feedback</p>
+                        <p class="task__date">December 2, 2000</p>
+                        <p class="task__time">10:00AM - 11:00PM</p>
+                        <div class="task__buttons">
+                            <button>Delete</button>
+                        </div>
+                    </div>
+                    <div class="task__status">
+                        <div class="task__circle task__circle">
+                            <p>Removed</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+<script src="assets/js/custom-js.js"></script>
+</body>
+
+</html>

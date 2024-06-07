@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    --primary-color: hsl(0, 0%, 98%);
+    --secondary-color: hsl(0, 0%, 100%);
+    --accent-color: hsl(158, 82%, 39%);
+    --primary-text: hsl(0, 0%, 0%);
+    --secondary-text: hsl(136, 9%, 61%);
+    --white: hsl(0, 0%, 100%);
+    --gray:hsl(160, 6%, 81%);
+
+    --font-family: "Poppins", sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family)
+}
+
+html {
+    height: 100%;
+    background-color: var(--primary-color);
+}
+
+body {
+    min-height: 100%;
+}
+
+header {
+    margin: 5% 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.date-info__container>p {
+    padding: 0.2rem 0;
+}
+
+.date-info__container>p:nth-of-type(1) {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.date-info__container>p:nth-of-type(2) {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--secondary-text);
+}
+
+.task-add__container {
+    width: 30%;
+}
+
+.task-add__container>button {
+    width: 100%;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: none;
+    outline: none;
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+nav>ul {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+nav>ul>li {
+    flex: 1 1 30%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 0.75rem;
+    list-style: none;
+    cursor: pointer;
+}
+
+nav>ul>li:nth-of-type(1) {
+  flex-shrink: 2;
+}
+
+nav>ul>li>span {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--gray);
+    color: var(--white);
+    border-radius: 1rem;
+}
+
+nav>ul>li.active {
+    border-bottom:  1px solid var(--accent-color);
+}
+
+nav>ul>li.active>span {
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+}
+
+main{
+    margin: 1rem;
+}
+
+.task__container{
+    margin: 1.5rem 0.5rem;
+}
+
+.task__container .task__card{
+    padding: 1rem;
+    margin: 1rem 0;
+    /* display: flex;
+    justify-content: space-between;
+    align-items: center; */
+    border-radius: 0.5rem;
+    background-color: var(--secondary-color);
+}
+
+.task__body{
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+}
+
+.task__container .task__card .task__body .task__name{
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.task__container .task__card .task__body .task__date, .task__container .task__card .task__body .task__time{
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+}
+
+.task__circle{
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-radius: 50px;
+}
+
+.task__circle > p{
+    position: absolute;
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.75rem;
+    font-weight: bolder;
+    border-radius: 0.25rem;
+    rotate: -5deg;
+}
+
+.task__card--unfinished .task__circle{
+    border: 2px solid orangered;
+    background-color: #FFDACC;
+}
+
+.task__card--unfinished  .task__circle > p{
+    border: 2px solid orangered;
+    background-color: #FFA684;
+    color: #CC3800;
+
+}
+
+.task__card--finished .task__circle{
+    border: 2px solid #00F73E;
+    background-color: #D2FFDE;
+}
+
+.task__card--finished .task__circle > p{
+    border: 2px solid #00F73E;
+    background-color: #A6FFBC;
+    color: #008822;
+}
+
+.task__card--deleted .task__circle{
+    border: 2px solid #CE090E;
+    background-color: #FCADAF;
+}
+
+.task__card--deleted .task__circle > p{
+    border: 2px solid #CE090E;
+    background-color: #FA7073;
+    color: #8E060A;
+}
+
+.task__buttons{
+    margin: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task__buttons > button{
+    padding: 0.35rem;
+    border: none;
+    border-radius: 0.25rem;
+    outline: none;
+    cursor: pointer;
+}
+
+
+.task__card--unfinished .task__buttons > button:nth-of-type(1){
+    background-color: var(--accent-color);
+    color: var(--white);
+}
+
+.task__card--unfinished .task__buttons > button:nth-of-type(2), .task__card--deleted .task__buttons > button:nth-of-type(1){
+    border: 1px solid red;
+    background-color: var(--white);
+    color: red;
+}
+
+.task__card--unfinished .task__buttons > button:nth-of-type(2):hover, .task__card--deleted .task__buttons > button:nth-of-type(1):hover{
+    border: 1px solid #ED5E68;
+    background-color: #ED5E68;
+    color: var(--white);
+}

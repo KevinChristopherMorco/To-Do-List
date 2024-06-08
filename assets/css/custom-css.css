@@ -8,6 +8,7 @@
     --secondary-text: hsl(136, 9%, 61%);
     --white: hsl(0, 0%, 100%);
     --gray:hsl(160, 6%, 81%);
+    --black: hsl(0, 0%, 0%);
 
     --font-family: "Poppins", sans-serif;
 }
@@ -26,6 +27,7 @@ html {
 
 body {
     min-height: 100%;
+    position: relative;
 }
 
 header {
@@ -142,6 +144,23 @@ main{
     color: var(--secondary-text);
 }
 
+.task__container .task__card .task__body .task__priority{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+}
+
+.task__container .task__card .task__body .task__priority.important > span{
+    width: 10px;
+    height: 10px;
+    margin: 0 0.5rem 0 0;
+    display: block;
+    border-radius: 10px;
+    background-color: red;
+}
+
 .task__circle{
     height: 50px;
     width: 50px;
@@ -214,7 +233,7 @@ main{
 }
 
 
-.task__card--unfinished .task__buttons > button:nth-of-type(1){
+.task__card--unfinished .task__buttons > button.primary__btn{
     background-color: var(--accent-color);
     color: var(--white);
 }
@@ -230,3 +249,66 @@ main{
     background-color: #ED5E68;
     color: var(--white);
 }
+
+.modal__task-add{
+    display: none;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 0.25rem;
+    background-color: var(--primary-color);
+}
+
+.modal__task-add{
+    padding: 1rem;
+}
+
+.modal__task-add .modal__header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal__task-add .modal__header > p{
+   font-size: 1.25rem;
+   font-weight: 700;
+}
+
+.modal__task-add .modal__body .form__task-container{
+    margin: 1rem 0;
+}
+
+.modal__task-add .modal__body .form__task-container > form > .input__container{
+    margin: 1.5rem 0;
+}
+
+.modal__task-add .modal__body .form__task-container > form > .input__container > label{
+    font-weight: 700;
+}
+
+.modal__task-add .modal__body .form__task-container > form > .input__container > input , .modal__task-add .modal__body .form__task-container > form > .input__container > select{
+    width: 100%;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    display: block;
+    border-radius: 0.25rem;
+    border: 1px solid var(--black);
+}
+
+.modal__footer{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.modal__footer > button.primary__btn{
+    padding: 0.5rem;
+    outline: none;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: var(--accent-color);
+    color: var(--white);
+}
+

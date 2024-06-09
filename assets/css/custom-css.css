@@ -134,6 +134,10 @@ main{
     align-items: center; 
 }
 
+.task__container .task__card .task__body .task__details{
+    max-width: 50%;
+}
+
 .task__container .task__card .task__body .task__name{
     font-size: 1.25rem;
     font-weight: 600;
@@ -152,7 +156,15 @@ main{
     color: var(--secondary-text);
 }
 
-.task__container .task__card .task__body .task__priority.important > span{
+.task__container .task__card .task__body .task__priority.urgent{
+    margin: 0.25rem 0;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: red;
+}
+
+
+.task__container .task__card .task__body .task__priority.urgent > span{
     width: 10px;
     height: 10px;
     margin: 0 0.5rem 0 0;
@@ -251,7 +263,6 @@ main{
 }
 
 .modal__task-add{
-    display: none;
     height: 100%;
     width: 100%;
     position: absolute;

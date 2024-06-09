@@ -40,13 +40,13 @@
             </ul>
         </nav>
         <div class="task__container">
-            <div class="task__card task__card--unfinished">
+            <!-- <div class="task__card task__card--unfinished">
                 <div class="task__body">
                     <div class="task__details">
                         <p class="task__name">Client Feedback</p>
                         <p class="task__date">December 2, 2000</p>
                         <p class="task__time">10:00AM - 11:00PM</p>
-                        <p class="task__priority important"><span></span>Important</p>
+                        <p class="task__priority urgent"><span></span>Important</p>
                         <div class="task__buttons">
                             <button class="primary__btn">Done</button>
                             <button class="danger__btn">Archive</button>
@@ -58,9 +58,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="task__card task__card--finished">
+            <!-- <div class="task__card task__card--finished">
                 <div class="task__body">
                     <div class="task__details">
                         <p class="task__name">Client Feedback</p>
@@ -91,41 +91,49 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </main>
 
-    <div class="modal__task-add">
-        <div class="modal__header">
-            <p>Add a new task</p>
-            <p>X</p>
-        </div>
-        <div class="modal__body">
-            <div class="form__task-container">
-                <form action="">
-                    <div class="input__container">
-                        <label for="task-name">Task Name</label>
-                        <input type="text" id="task-name" placeholder="Enter task name">
-                    </div>
-                    <div class="input__container">
-                        <label for="task-date">Time of Completion</label>
-                        <input type="date">
-                    </div>
-                    <div class="input__container">
-                        <label for="task-date">Level of priority</label>
-                        <select name="" id="priority__list">
-                            <option value="">Priority List</option>
-                            <option value="">Important</option>
-                            <option value="">Not so important</option>
-                        </select>
-                    </div>
-                </form>
+    <template id="modal__template">
+        <div class="modal__task-add">
+            <div class="modal__header">
+                <p>Add a new task</p>
+                <p>X</p>
+            </div>
+            <div class="modal__body">
+                <div class="form__task-container">
+                    <form action="">
+                        <div class="input__container">
+                            <label for="task-name">Task Name</label>
+                            <input type="text" id="task-name" placeholder="Enter task name">
+                        </div>
+                        <div class="input__container">
+                            <label for="task-date">Date of Completion</label>
+                            <input type="date" id="task-date">
+                        </div>
+                        <div class="input__container">
+                            <label for="task-time">Time of Completion</label>
+                            <input type="time" id="task-time">
+                        </div>
+                        <div class="input__container">
+                            <label for="priority__list">Level of priority</label>
+                            <select name="" id="priority-list">
+                                <option selected>Priority List</option>
+                                <option value="Urgent">Urgent</option>
+                                <option value="Important">Important</option>
+                                <option value="Non-urgent">Non-urgent</option>
+
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal__footer">
+                <button class="primary__btn">Create</button>
             </div>
         </div>
-        <div class="modal__footer">
-            <button class="primary__btn">Create</button>
-        </div>
-    </div>
+    </template>
 
     <template id="pending__task">
         <div class="task__card task__card--unfinished">
@@ -133,7 +141,7 @@
                 <div class="task__details">
                     <p class="task__name">Client Feedback</p>
                     <p class="task__date">December 2, 2000</p>
-                    <p class="task__time">10:00AM - 11:00PM</p>
+                    <p class="task__priority urgent"><span></span>Important</p>
                     <div class="task__buttons">
                         <button class="primary__btn">Done</button>
                         <button class="danger__btn">Archive</button>

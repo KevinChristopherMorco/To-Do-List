@@ -7,7 +7,7 @@
     --primary-text: hsl(0, 0%, 0%);
     --secondary-text: hsl(136, 9%, 61%);
     --white: hsl(0, 0%, 100%);
-    --gray:hsl(160, 6%, 81%);
+    --gray: hsl(160, 6%, 81%);
     --black: hsl(0, 0%, 0%);
 
     --font-family: "Poppins", sans-serif;
@@ -88,7 +88,7 @@ nav>ul>li {
 }
 
 nav>ul>li:nth-of-type(1) {
-  flex-shrink: 2;
+    flex-shrink: 2;
 }
 
 nav>ul>li>span {
@@ -102,7 +102,7 @@ nav>ul>li>span {
 }
 
 nav>ul>li.active {
-    border-bottom:  1px solid var(--accent-color);
+    border-bottom: 1px solid var(--accent-color);
 }
 
 nav>ul>li.active>span {
@@ -110,15 +110,31 @@ nav>ul>li.active>span {
     color: var(--secondary-color);
 }
 
-main{
+main {
     margin: 1rem;
 }
 
-.task__container{
+.task__container {
     margin: 1.5rem 0.5rem;
 }
 
-.task__container .task__card{
+.sort__container {
+    width: 90%;
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+}
+
+.sort__container > p{
+  font-weight: 600;
+}
+
+.sort__container > select{
+    padding: 0.1rem;
+    border: 1px solid var(--primary-text);
+  }
+
+.task__container .task__card {
     padding: 1rem;
     margin: 1rem 0;
     /* display: flex;
@@ -128,52 +144,73 @@ main{
     background-color: var(--secondary-color);
 }
 
-.task__body{
+.task__body {
     display: flex;
     justify-content: space-between;
-    align-items: center; 
+    align-items: center;
 }
 
-.task__container .task__card .task__body .task__details{
-    max-width: 50%;
+.task__container .task__card .task__body .task__details {
+    min-width: 50%;
 }
 
-.task__container .task__card .task__body .task__name{
+.task__container .task__card .task__body .task__name {
     font-size: 1.25rem;
-    font-weight: 600;
+    font-weight: bolder;
 }
 
-.task__container .task__card .task__body .task__date, .task__container .task__card .task__body .task__time{
+.task__container .task__card .task__body .task__date,
+.task__container .task__card .task__body .task__time {
     font-size: 0.9rem;
     color: var(--secondary-text);
 }
 
-.task__container .task__card .task__body .task__priority{
+.task__container .task__card .task__body .task__priority {
+    margin: 0.25rem 0;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    font-size: 0.9rem;
+    font-size: 0.75rem;
+    font-weight: bolder;
     color: var(--secondary-text);
 }
 
-.task__container .task__card .task__body .task__priority.urgent{
-    margin: 0.25rem 0;
-    font-size: 0.75rem;
-    font-weight: 700;
+.task__container .task__card .task__body .task__priority.urgent {
     color: red;
 }
 
+.task__container .task__card .task__body .task__priority.important {
+    color: #FFA500;
+}
 
-.task__container .task__card .task__body .task__priority.urgent > span{
+.task__container .task__card .task__body .task__priority.non-urgent {
+    color: #32CD32;
+}
+
+.task__container .task__card .task__body .task__priority>span {
     width: 10px;
     height: 10px;
     margin: 0 0.5rem 0 0;
     display: block;
     border-radius: 10px;
+}
+
+.task__container .task__card .task__body .task__priority.urgent>span {
     background-color: red;
 }
 
-.task__circle{
+.task__container .task__card .task__body .task__priority.important>span {
+    background-color: #FFA500;
+}
+
+.task__container .task__card .task__body .task__priority.non-urgent>span {
+    background-color: #32CD32;
+}
+
+
+
+
+.task__circle {
     height: 50px;
     width: 50px;
     display: flex;
@@ -183,7 +220,7 @@ main{
     border-radius: 50px;
 }
 
-.task__circle > p{
+.task__circle>p {
     position: absolute;
     width: 70px;
     display: flex;
@@ -195,48 +232,48 @@ main{
     rotate: -5deg;
 }
 
-.task__card--unfinished .task__circle{
+.task__card--unfinished .task__circle {
     border: 2px solid orangered;
     background-color: #FFDACC;
 }
 
-.task__card--unfinished  .task__circle > p{
+.task__card--unfinished .task__circle>p {
     border: 2px solid orangered;
     background-color: #FFA684;
     color: #CC3800;
 
 }
 
-.task__card--finished .task__circle{
+.task__card--finished .task__circle {
     border: 2px solid #00F73E;
     background-color: #D2FFDE;
 }
 
-.task__card--finished .task__circle > p{
+.task__card--finished .task__circle>p {
     border: 2px solid #00F73E;
     background-color: #A6FFBC;
     color: #008822;
 }
 
-.task__card--deleted .task__circle{
+.task__card--deleted .task__circle {
     border: 2px solid #CE090E;
     background-color: #FCADAF;
 }
 
-.task__card--deleted .task__circle > p{
+.task__card--deleted .task__circle>p {
     border: 2px solid #CE090E;
     background-color: #FA7073;
     color: #8E060A;
 }
 
-.task__buttons{
+.task__buttons {
     margin: 1rem 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.task__buttons > button{
+.task__buttons>button {
     padding: 0.35rem;
     border: none;
     border-radius: 0.25rem;
@@ -245,61 +282,64 @@ main{
 }
 
 
-.task__card--unfinished .task__buttons > button.primary__btn{
+.task__card--unfinished .task__buttons>button.primary__btn {
     background-color: var(--accent-color);
     color: var(--white);
 }
 
-.task__card--unfinished .task__buttons > button:nth-of-type(2), .task__card--deleted .task__buttons > button:nth-of-type(1){
+.task__card--unfinished .task__buttons>button:nth-of-type(2),
+.task__card--deleted .task__buttons>button:nth-of-type(1) {
     border: 1px solid red;
     background-color: var(--white);
     color: red;
 }
 
-.task__card--unfinished .task__buttons > button:nth-of-type(2):hover, .task__card--deleted .task__buttons > button:nth-of-type(1):hover{
+.task__card--unfinished .task__buttons>button:nth-of-type(2):hover,
+.task__card--deleted .task__buttons>button:nth-of-type(1):hover {
     border: 1px solid #ED5E68;
     background-color: #ED5E68;
     color: var(--white);
 }
 
-.modal__task-add{
+.modal__task-add {
     height: 100%;
     width: 100%;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     border-radius: 0.25rem;
     background-color: var(--primary-color);
 }
 
-.modal__task-add{
+.modal__task-add {
     padding: 1rem;
 }
 
-.modal__task-add .modal__header{
+.modal__task-add .modal__header {
     display: flex;
     justify-content: space-between;
 }
 
-.modal__task-add .modal__header > p{
-   font-size: 1.25rem;
-   font-weight: 700;
-}
-
-.modal__task-add .modal__body .form__task-container{
-    margin: 1rem 0;
-}
-
-.modal__task-add .modal__body .form__task-container > form > .input__container{
-    margin: 1.5rem 0;
-}
-
-.modal__task-add .modal__body .form__task-container > form > .input__container > label{
+.modal__task-add .modal__header>p {
+    font-size: 1.25rem;
     font-weight: 700;
 }
 
-.modal__task-add .modal__body .form__task-container > form > .input__container > input , .modal__task-add .modal__body .form__task-container > form > .input__container > select{
+.modal__task-add .modal__body .form__task-container {
+    margin: 1rem 0;
+}
+
+.modal__task-add .modal__body .form__task-container>form>.input__container {
+    margin: 1.5rem 0;
+}
+
+.modal__task-add .modal__body .form__task-container>form>.input__container>label {
+    font-weight: 700;
+}
+
+.modal__task-add .modal__body .form__task-container>form>.input__container>input,
+.modal__task-add .modal__body .form__task-container>form>.input__container>select {
     width: 100%;
     margin: 0.5rem 0;
     padding: 0.5rem;
@@ -308,13 +348,13 @@ main{
     border: 1px solid var(--black);
 }
 
-.modal__footer{
+.modal__footer {
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
 
-.modal__footer > button.primary__btn{
+.modal__footer>button.primary__btn {
     padding: 0.5rem;
     outline: none;
     border: none;
@@ -323,3 +363,18 @@ main{
     color: var(--white);
 }
 
+.empty__task-container {}
+
+.empty__task-container>p {
+    text-align: center;
+}
+
+.empty__task-container>p:nth-of-type(1) {
+    font-size: 2rem;
+}
+
+.empty__task-container>p:nth-of-type(2) {
+    font-size: 1.25rem;
+    font-weight: 500;
+    font-style: oblique;
+}

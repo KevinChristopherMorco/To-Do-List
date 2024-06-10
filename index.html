@@ -40,6 +40,18 @@
             </ul>
         </nav>
         <div class="task__container">
+            <div class="sort__container">
+                <p>Sort by:</p>
+                <select id="sort-type">
+                    <option value="priority">Priority</option>
+                    <option value="name">Name</option>
+                    <option value="date">Date</option>
+                </select>
+                <select id="sort-order">
+                    <option value="ascending">Ascending</option>
+                    <option value="descending">Descending</option>
+                </select>
+            </div>
             <!-- <div class="task__card task__card--unfinished">
                 <div class="task__body">
                     <div class="task__details">
@@ -109,17 +121,13 @@
                             <input type="text" id="task-name" placeholder="Enter task name">
                         </div>
                         <div class="input__container">
-                            <label for="task-date">Date of Completion</label>
+                            <label for="task-date">Estimated Date of Completion</label>
                             <input type="date" id="task-date">
-                        </div>
-                        <div class="input__container">
-                            <label for="task-time">Time of Completion</label>
-                            <input type="time" id="task-time">
                         </div>
                         <div class="input__container">
                             <label for="priority__list">Level of priority</label>
                             <select name="" id="priority-list">
-                                <option selected>Priority List</option>
+                                <option selected disabled>Priority List</option>
                                 <option value="Urgent">Urgent</option>
                                 <option value="Important">Important</option>
                                 <option value="Non-urgent">Non-urgent</option>
@@ -141,7 +149,7 @@
                 <div class="task__details">
                     <p class="task__name">Client Feedback</p>
                     <p class="task__date">December 2, 2000</p>
-                    <p class="task__priority urgent"><span></span>Important</p>
+                    <p class="task__priority"><span></span>Important</p>
                     <div class="task__buttons">
                         <button class="primary__btn">Done</button>
                         <button class="danger__btn">Archive</button>
@@ -153,6 +161,13 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </template>
+
+    <template id="empty__task">
+        <div class="empty__task-container">
+            <p>😄</p>
+            <p>You're all caught up!</p>
         </div>
     </template>
 

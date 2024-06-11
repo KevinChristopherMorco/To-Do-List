@@ -78,6 +78,7 @@ nav>ul {
 }
 
 nav>ul>li {
+    padding: 0.5rem 0;
     flex: 1 1 30%;
     display: flex;
     justify-content: space-evenly;
@@ -91,7 +92,15 @@ nav>ul>li:nth-of-type(1) {
     flex-shrink: 2;
 }
 
-nav>ul>li>span {
+nav>ul>li>a{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    text-decoration: none;
+    color: var(--primary-text);
+}
+
+nav>ul>li>a>span {
     width: 30%;
     display: flex;
     justify-content: center;
@@ -102,10 +111,10 @@ nav>ul>li>span {
 }
 
 nav>ul>li.active {
-    border-bottom: 1px solid var(--accent-color);
+    border-bottom: 2px solid var(--accent-color);
 }
 
-nav>ul>li.active>span {
+nav>ul>li.active>a > span {
     background-color: var(--accent-color);
     color: var(--secondary-color);
 }

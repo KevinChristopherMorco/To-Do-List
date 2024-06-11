@@ -25,8 +25,10 @@ const closeModal = (e, el) => {
 }
 
 const addTask = () => {
+    const storageItemss = JSON.parse(localStorage.getItem('taskDetails'))
 
-    if (storageItems.length === 0 && localStorage.length != 0 && JSON.parse(localStorage.getItem('taskDetails').length != 0)) {
+
+    if (storageItems.length === 0 && storageItemss != null) {
         JSON.parse(localStorage.getItem('taskDetails')).forEach(element => {
             storageItems.push(element)
         })
@@ -86,7 +88,9 @@ const clear = (elements) => {
 }
 
 const loadItems = (e) => {
-    if (localStorage.length === 0) {
+    const storageItems = JSON.parse(localStorage.getItem('taskDetails'))
+
+    if (storageItems === null) {
         const emptyTaskTemplate = document.querySelector('#empty__task')
         const emptyTaskClone = emptyTaskTemplate.content.cloneNode(true)
         taskWrapper.appendChild(emptyTaskClone)
@@ -94,7 +98,6 @@ const loadItems = (e) => {
     }
 
     const pendingTemplate = document.querySelector('#pending__task')
-    const storageItems = JSON.parse(localStorage.getItem('taskDetails'))
 
     const check = sort(e) === undefined ? storageItems.sort((a, b) => b.taskTier - a.taskTier) : sort(e)
 
@@ -141,12 +144,18 @@ const sortItemType = () => {
     clearCards()
     const storageItems = JSON.parse(localStorage.getItem('taskDetails'))
     const typeValue = taskWrapper.querySelector('#sort-type')
+
+    if (storageItems === null) return;
+
     switch (typeValue.value) {
         case 'name':
+            localStorage.setItem('sortType', 'name')
             return storageItems.sort((a, b) => a.taskName.localeCompare(b.taskName))
         case 'priority':
+            localStorage.setItem('sortType', 'priority')
             return storageItems.sort((a, b) => a.taskTier - b.taskTier)
         case 'date':
+            localStorage.setItem('sortType', 'date')
             return storageItems.sort((a, b) => new Date(a.taskDate) - new Date(b.taskDate))
         default:
             break;
@@ -158,15 +167,13 @@ const sortItemOrder = () => {
     const orderValue = taskWrapper.querySelector('#sort-order')
     switch (orderValue.value) {
         case 'ascending':
+            localStorage.setItem('sortOrder', 'ascending')
             return sortItemType()
             break;
-        // return element.sort((a, b) => b.taskName - a.taskName)
-
         case 'descending':
+            localStorage.setItem('sortOrder', 'descending')
             return sortItemType().reverse()
             break;
-
-        // return element.sort((a, b) => a.taskTier - b.taskTier)
         default:
             break;
     }
@@ -186,13 +193,31 @@ const clearCards = () => {
 sortType.addEventListener('change', (e) => loadItems(e))
 
 
-const archiveTask = () => {
-    console.log('archived')
+const archiveTask = (e) => {
+    const storageItems = JSON.parse(localStorage.getItem('taskDetails'))
+    const index = storageItems.findIndex(x => x.taskName === e.target.closest('.task__details').querySelector('.task__name').textContent)
+    storageItems[index].taskStatus = 'archived'
+    localStorage.setItem('taskDetails',JSON.stringify(storageItems))
 }
 
-const finishTask = () => {
-    console.log('finished')
+const finishTask = (e) => {
+    const storageItems = JSON.parse(localStorage.getItem('taskDetails'))
+    const index = storageItems.findIndex(x => x.taskName === e.target.closest('.task__details').querySelector('.task__name').textContent)
+    storageItems[index].taskStatus = 'finished'
+    localStorage.setItem('taskDetails',JSON.stringify(storageItems))
 }
 
+const list = document.querySelector('.main__list')
+const handleListClick = (e) => {
+
+    Array.from(document.querySelector('.main__list').children).forEach(element => {
+        element.classList.remove('active')
+    })
+
+    if (e.target.tagName === 'A' || e.target.tagName === 'SPAN' || e.target.tagName === 'LI') {
+        e.target.closest('.list__item').classList.add('active')
+    }
+}
+list.addEventListener('click', (e) => handleListClick(e))
 
 

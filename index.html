@@ -25,17 +25,14 @@
     <main>
         <nav>
             <ul class="main__list">
-                <li class="list__item active">
-                    <a href="#all">All<span>6</span></a>
+                <li class="list__item">
+                    <a href="#toDo">To-Do<span></span></a>
                 </li>
                 <li class="list__item">
-                    <a href="#toDo">To-Do<span>3</span></a> 
+                    <a href="#done">Finished<span></span></a>
                 </li>
                 <li class="list__item">
-                    <a href="#done">Done<span>5</span></a> 
-                </li>
-                <li class="list__item">
-                    <a href="#deleted">Deleted<span>8</span></a> 
+                    <a href="#deleted">Deleted<span></span></a>
                 </li>
             </ul>
         </nav>
@@ -52,58 +49,6 @@
                     <option value="descending">Descending</option>
                 </select>
             </div>
-            <!-- <div class="task__card task__card--unfinished">
-                <div class="task__body">
-                    <div class="task__details">
-                        <p class="task__name">Client Feedback</p>
-                        <p class="task__date">December 2, 2000</p>
-                        <p class="task__time">10:00AM - 11:00PM</p>
-                        <p class="task__priority urgent"><span></span>Important</p>
-                        <div class="task__buttons">
-                            <button class="primary__btn">Done</button>
-                            <button class="danger__btn">Archive</button>
-                        </div>
-                    </div>
-                    <div class="task__status">
-                        <div class="task__circle">
-                            <p>Pending</p>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
-            <!-- <div class="task__card task__card--finished">
-                <div class="task__body">
-                    <div class="task__details">
-                        <p class="task__name">Client Feedback</p>
-                        <p class="task__date">December 2, 2000</p>
-                        <p class="task__time">10:00AM - 11:00PM</p>
-                    </div>
-                    <div class="task__status">
-                        <div class="task__circle task__circle">
-                            <p>Complete</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="task__card task__card--deleted">
-                <div class="task__body">
-                    <div class="task__details">
-                        <p class="task__name">Client Feedback</p>
-                        <p class="task__date">December 2, 2000</p>
-                        <p class="task__time">10:00AM - 11:00PM</p>
-                        <div class="task__buttons">
-                            <button>Delete</button>
-                        </div>
-                    </div>
-                    <div class="task__status">
-                        <div class="task__circle task__circle">
-                            <p>Removed</p>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </main>
 
@@ -164,6 +109,42 @@
         </div>
     </template>
 
+    <template id="archive__task">
+        <div class="task__card task__card--deleted">
+            <div class="task__body">
+                <div class="task__details">
+                    <p class="task__name">Client Feedback</p>
+                    <p class="task__date">December 2, 2000</p>
+                    <div class="task__buttons">
+                        <button class="primary__btn">Restore</button>
+                        <button class="danger__btn">Delete</button>
+                    </div>
+                </div>
+                <div class="task__status">
+                    <div class="task__circle task__circle">
+                        <p>Archived</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="finish__task">
+        <div class="task__card task__card--finished">
+            <div class="task__body">
+                <div class="task__details">
+                    <p class="task__name">Client Feedback</p>
+                    <p class="task__date">December 2, 2000</p>
+                </div>
+                <div class="task__status">
+                    <div class="task__circle task__circle">
+                        <p>Complete</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
     <template id="empty__task">
         <div class="empty__task-container">
             <p>😄</p>
@@ -171,7 +152,7 @@
         </div>
     </template>
 
-    <script src="assets/js/custom-js.js"></script>
+    <script type="module" src="assets/js/custom-js.js"></script>
 </body>
 
 </html>

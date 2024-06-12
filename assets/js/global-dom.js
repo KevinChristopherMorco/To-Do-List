@@ -1,0 +1,5 @@
+export const taskWrapper = document.querySelector('.task__container')
+export const addBtn = document.querySelector('.task-add__container > button')
+export const dateEl = document.querySelector('.date-info__container > p:nth-of-type(2)')
+export const list = document.querySelector('.main__list')
+export const listItemNumber = document.querySelectorAll('nav>ul>li>a>span')

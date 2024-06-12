@@ -161,7 +161,7 @@ main {
 }
 
 .task__container .task__card .task__body .task__name {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: bolder;
 }
 
@@ -261,6 +261,11 @@ main {
     color: #008822;
 }
 
+.task__card--finished .task__name{
+    text-decoration: line-through;
+    color: #008822;
+}
+
 .task__card--deleted .task__circle {
     border: 2px solid #CE090E;
     background-color: #FCADAF;
@@ -329,6 +334,7 @@ main {
 .modal__task-add .modal__header>p {
     font-size: 1.25rem;
     font-weight: 700;
+    cursor: pointer;
 }
 
 .modal__task-add .modal__body .form__task-container {
@@ -368,7 +374,9 @@ main {
     color: var(--white);
 }
 
-.empty__task-container {}
+.empty__task-container {
+    margin: 2rem 0;
+}
 
 .empty__task-container>p {
     text-align: center;

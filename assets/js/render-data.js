@@ -1,25 +1,42 @@
 import { sortItemOrder } from "./sort-tasks.js"
-import { taskWrapper, listItemNumber } from "./global-dom.js"
-// import { archiveTask, deleteTask, finishTask, restoreTask} from "./crud.js"
-
+import { dateEl, taskWrapper, list, listItemNumber } from "./global-dom.js"
 import { crudTask, deleteTask } from "./crud.js"
+
+const date = new Date()
+dateEl.textContent = `${date.toLocaleString('en-PH', { weekday: 'long' })}, ${date.getDate()} ${date.toLocaleString('en-PH', { month: 'short' })}`
+console.log(date)
 
 export const displayNumberItems = () => {
     const storageItems = JSON.parse(localStorage.getItem('taskDetails'))
     listItemNumber.forEach((element, i) => {
         if (i === 0) {
+            if (storageItems === null) {
+                element.textContent = '0'
+                return;
+            }
+
             const filteredStorage = storageItems.filter(x => x.taskStatus === 'pending')
             element.textContent = filteredStorage.length
             return;
         }
 
         if (i === 1) {
+            if (storageItems === null) {
+                element.textContent = '0'
+                return;
+            }
+
             const filteredStorage = storageItems.filter(x => x.taskStatus === 'finished')
             element.textContent = filteredStorage.length
             return;
         }
 
         if (i === 2) {
+            if (storageItems === null) {
+                element.textContent = '0'
+                return;
+            }
+
             const filteredStorage = storageItems.filter(x => x.taskStatus === 'archived')
             element.textContent = filteredStorage.length
             return;
@@ -31,13 +48,21 @@ window.addEventListener('load', displayNumberItems)
 
 export const loadItems = (e) => {
     const storageItems = JSON.parse(localStorage.getItem('taskDetails'))
+    const getActiveURL = localStorage.getItem('activeURL')
+    const index = window.location.href.indexOf('#')
 
-    if (storageItems === null) {
-        const emptyTaskTemplate = document.querySelector('#empty__task')
-        const emptyTaskClone = emptyTaskTemplate.content.cloneNode(true)
-        taskWrapper.appendChild(emptyTaskClone)
-        return;
-    }
+    list.querySelectorAll('li > a').forEach(element => {
+        if (element.href.slice(index + 1) === getActiveURL){
+            element.closest('li').classList.add('active')
+        }
+    })
+
+    const filteredStorage = storageItems.filter(x => x.taskStatus === getActiveURL)
+
+    renderTask(e,getActiveURL,filteredStorage)
+
+    checkEmptyStorage(storageItems)
+
 }
 
 window.addEventListener('load', loadItems)
@@ -51,7 +76,7 @@ export const renderTask = (e, type, storage) => {
         case 'archived':
             template = document.querySelector('#archive__task')
             break;
-        case 'completed':
+        case 'finished':
             template = document.querySelector('#finish__task')
             break;
         default:
@@ -85,7 +110,7 @@ export const renderTask = (e, type, storage) => {
                     break;
             }
         }
-        if (type === 'completed') {
+        if (type === 'finished') {
             templateClone.querySelector('.task__name').textContent = task.taskName
             templateClone.querySelector('.task__date').textContent = task.taskDate
         }
@@ -107,19 +132,30 @@ export const loadItemTypes = (e) => {
         const key = window.location.href.slice(index + 1)
         let filteredStorage
 
+        if (storageItems === null) {
+            checkEmptyStorage(storageItems)
+            return;
+        }
+
         switch (key) {
-            case 'toDo':
+            case 'pending':
                 filteredStorage = storageItems.filter(x => x.taskStatus === 'pending')
+                localStorage.setItem('activeURL', 'pending')
+                checkEmptyTasks(filteredStorage)
                 renderTask(e, 'pending', filteredStorage)
                 break;
 
-            case 'done':
+            case 'finished':
                 filteredStorage = storageItems.filter(x => x.taskStatus === 'finished')
-                renderTask(e, 'completed', filteredStorage)
+                localStorage.setItem('activeURL', 'finished')
+                checkEmptyTasks(filteredStorage)
+                renderTask(e, 'finished', filteredStorage)
                 break;
 
-            case 'deleted':
+            case 'archived':
                 filteredStorage = storageItems.filter(x => x.taskStatus === 'archived')
+                localStorage.setItem('activeURL', 'archived')
+                checkEmptyTasks(filteredStorage)
                 renderTask(e, 'archived', filteredStorage)
                 break;
 
@@ -128,4 +164,26 @@ export const loadItemTypes = (e) => {
                 break;
         }
     }, 200)
+}
+
+const checkEmptyStorage = (element) => {
+    if (element === null) {
+        const emptyTaskTemplate = document.querySelector('#empty__task')
+        const emptyTaskClone = emptyTaskTemplate.content.cloneNode(true)
+        taskWrapper.appendChild(emptyTaskClone)
+        return;
+    }
+}
+
+const checkEmptyTasks = (element) => {
+    if (taskWrapper.querySelector('.empty__task-container') != null) {
+        taskWrapper.querySelector('.empty__task-container').remove()
+    }
+
+    if (element.length === 0) {
+        const emptyTaskTemplate = document.querySelector('#empty__task')
+        const emptyTaskClone = emptyTaskTemplate.content.cloneNode(true)
+        taskWrapper.appendChild(emptyTaskClone)
+        return;
+    }
 }

@@ -1,7 +1,7 @@
 import { clearCards} from "./helpers.js"
 import { taskWrapper } from "./global-dom.js"
 import { loadItemTypes, renderTask } from "./render-data.js"
-const sortType = document.querySelector('.sort__container')
+// const sortType = taskWrapper?.querySelector('.sort__container')
 
 const sortItemType = (storage) => {
     clearCards()
@@ -27,6 +27,7 @@ const sortItemType = (storage) => {
 export const sortItemOrder = (e,storage) => {
     clearCards()
     const orderValue = taskWrapper.querySelector('#sort-order')
+    if(orderValue === null) return;
     switch (orderValue.value) {
         case 'ascending':
             localStorage.setItem('sortOrder', 'ascending')
@@ -41,6 +42,7 @@ export const sortItemOrder = (e,storage) => {
     }
 }
 
-sortType.addEventListener('change', (e) => loadItemTypes(e))
+// sortType.addEventListener('change', (e) => loadItemTypes(e))
+
 
 

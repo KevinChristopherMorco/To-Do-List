@@ -37,7 +37,7 @@
             </ul>
         </nav>
         <div class="task__container">
-            <div class="sort__container">
+            <!-- <div class="sort__container">
                 <p>Sort by:</p>
                 <select id="sort-type">
                     <option value="priority">Priority</option>
@@ -48,7 +48,7 @@
                     <option value="ascending">Ascending</option>
                     <option value="descending">Descending</option>
                 </select>
-            </div>
+            </div> -->
         </div>
     </main>
 
@@ -161,6 +161,21 @@
         <div class="empty__task-container">
             <p>😄</p>
             <p>You're all caught up!</p>
+        </div>
+    </template>
+
+    <template id="sort__template">
+        <div class="sort__container">
+            <p>Sort by:</p>
+            <select id="sort-type">
+                <option value="priority">Priority</option>
+                <option value="name">Name</option>
+                <option value="date">Date</option>
+            </select>
+            <select id="sort-order">
+                <option value="ascending">Ascending</option>
+                <option value="descending">Descending</option>
+            </select>
         </div>
     </template>
 

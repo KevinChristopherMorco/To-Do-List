@@ -36,6 +36,7 @@ export const loadItems = (e) => {
         }
     })
 
+    setSortContainer()
     getModalState()
     checkTaskDeadline(storageItems)
 
@@ -47,19 +48,16 @@ export const loadItems = (e) => {
 window.addEventListener('load', loadItems)
 
 export const renderTask = (e, type, storage) => {
-    let template
-    switch (type) {
-        case 'pending':
-            template = document.querySelector('#pending__task')
-            break;
-        case 'archived':
-            template = document.querySelector('#archive__task')
-            break;
-        case 'finished':
-            template = document.querySelector('#finish__task')
-            break;
-        default:
-            break;
+
+    const keyMap = {
+        'pending': '#pending__task',
+        'finished': '#finish__task',
+        'archived': '#archive__task'
+    }
+
+    let template = keyMap[type]
+    if (template) {
+        template = document.querySelector(template)
     }
 
     const sortedTasks = sortItemOrder(e, storage) === undefined ? storage.sort((a, b) => b.taskTier - a.taskTier) : sortItemOrder(e, storage)
@@ -73,22 +71,19 @@ export const renderTask = (e, type, storage) => {
             templateClone.querySelector('.task__buttons .primary__btn').addEventListener('click', (e) => crudTask(e, 'finished'))
             templateClone.querySelector('.task__buttons .danger__btn').addEventListener('click', (e) => crudTask(e, 'archived'))
             const priorityColor = templateClone.querySelector('.task__priority')
-            switch (priorityColor.textContent) {
-                case 'Urgent':
-                    priorityColor.classList.add('urgent')
-                    break;
+            const priorityMap = {
+                'Urgent': 'urgent',
+                'Important': 'important',
+                'Non-urgent': 'non-urgent'
+            };
 
-                case 'Important':
-                    priorityColor.classList.add('important')
-                    break;
+            const priorityClass = priorityMap[priorityColor.textContent]
 
-                case 'Non-urgent':
-                    priorityColor.classList.add('non-urgent')
-                    break;
-                default:
-                    throw new Error('No available color for the status')
-                    break;
+            if (!priorityClass) {
+                throw new Error('No available color for the status')
             }
+
+            priorityColor.classList.add(priorityClass)
         }
         if (type === 'archived') {
             templateClone.querySelector('.task__buttons .primary__btn').addEventListener('click', (e) => crudTask(e, 'pending'))
@@ -105,24 +100,19 @@ export const loadItemTypes = (e) => {
         const key = window.location.href.slice(index + 1)
 
         visualEmptyStorage(storageItems)
-        
-        switch (key) {
-            case 'pending':
-                checkURL(e, 'pending', storageItems)
-                break;
 
-            case 'finished':
-                checkURL(e, 'finished', storageItems)
-                break;
-
-            case 'archived':
-                checkURL(e, 'archived', storageItems)
-                break;
-
-            default:
-                throw new Error('Route does not exist')
-                break;
+        const keyMap = {
+            'pending': 'pending',
+            'finished': 'finished',
+            'archived': 'archived'
         }
+
+        const currentURL = keyMap[key]
+
+        if (currentURL) {
+            checkURL(e, currentURL, storageItems)
+        }
+
     }, 200)
 }
 
@@ -148,5 +138,14 @@ const checkTaskDeadline = (tasks) => {
         })
         localStorage.setItem('taskDetails', JSON.stringify(storageArray))
     }
+}
+
+const setSortContainer = () => {
+    const sortTemplate = document.querySelector('#sort__template')
+    const clone = sortTemplate.content.cloneNode(true)
+
+    if (taskWrapper.querySelector('.sort__container') != null) return;
+    clone.querySelector('.sort__container').addEventListener('change', (e) => loadItemTypes(e))
+    taskWrapper.insertBefore(clone, taskWrapper.firstElementChild)
 }
 

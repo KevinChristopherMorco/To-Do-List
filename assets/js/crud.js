@@ -11,13 +11,20 @@ export const addTask = () => {
 
     const taskName = document.querySelector('#task-name')
     const taskDate = document.querySelector('#task-date')
+    const taskStartTime = document.querySelector('#task-start-time')
+    const taskEndTime = document.querySelector('#task-end-time')
     const taskPriority = document.querySelector('#priority-list')
 
     let id
     storageArray.length === 0 ? id = 1 : id = storageItems[storageItems.length - 1].id + 1
 
     const convertDate = new Date(taskDate.value)
-    const convertTaskDate = `${convertDate.toLocaleString('en-PH', { weekday: 'long' })}, ${convertDate.getDate()} ${convertDate.toLocaleString('en-PH', { month: 'short' })}`
+    const convertTaskDate = convertDate.toLocaleString('en-PH', {
+        weekday: 'short',
+        day:'numeric',
+        month: 'short',
+        year:'numeric'
+    })
 
     let taskTier
     switch (taskPriority.value) {
@@ -41,6 +48,8 @@ export const addTask = () => {
         'id': id,
         'taskName': taskName.value,
         'taskDate': convertTaskDate,
+        'taskStartTime': taskStartTime.value,
+        'taskEndTime': taskEndTime.value,
         'taskPriority': taskPriority.value,
         'taskTier': taskTier,
         'taskStatus': 'pending'
@@ -51,21 +60,22 @@ export const addTask = () => {
     clear([taskName, taskDate, taskPriority])
 }
 
-export const crudTask = (e,status) => {
+export const crudTask = (e, status) => {
     const storageItems = JSON.parse(localStorage.getItem('taskDetails'))
     const index = storageItems.findIndex(x => x.taskName === e.target.closest('.task__details').querySelector('.task__name').textContent)
     storageItems[index].taskStatus = status
-    localStorage.setItem('taskDetails',JSON.stringify(storageItems))
+    localStorage.setItem('taskDetails', JSON.stringify(storageItems))
 }
 
 export const deleteTask = (e) => {
     const storageItems = JSON.parse(localStorage.getItem('taskDetails'))
     const index = storageItems.findIndex(x => x.taskName === e.target.closest('.task__details').querySelector('.task__name').textContent)
-    if (storageArray.length === 0 && storageItems != null) {
-        JSON.parse(localStorage.getItem('taskDetails')).forEach((element,i) => {
-            if(i === index)return;
+
+    if (storageItems != null) {
+        JSON.parse(localStorage.getItem('taskDetails')).forEach((element, i) => {
+            if (i === index) return;
             storageArray.push(element)
         })
-    }   
+    }
     localStorage.setItem('taskDetails', JSON.stringify(storageArray))
 }

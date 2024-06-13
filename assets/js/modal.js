@@ -1,23 +1,28 @@
 import { taskWrapper, addBtn } from "./global-dom.js"
 import { addTask } from "./crud.js"
 
-const openModal = (e) => {
+export const openModal = (e) => {
     const addModalTemplate = document.querySelector('#modal__template')
     const addClone = addModalTemplate.content.cloneNode(true)
-    const el = addClone.querySelector('.modal__task-add')
-    addClone.querySelector('.modal__header > p:nth-of-type(2)').addEventListener('click', (e) => closeModal(e, el))
+    const modal = addClone.querySelector('.modal__task-add')
+    addClone.querySelector('.modal__header > p:nth-of-type(2)').addEventListener('click', (e) => closeModal(e, modal))
     addClone.querySelector('.modal__footer > button').addEventListener('click', (e) => addTask(e))
     taskWrapper.appendChild(addClone)
-    modalState(true)
+    setModalState(true)
 }
 
 addBtn.addEventListener('click', (e) => openModal(e))
 
-const closeModal = (e, el) => {
-    el.remove()
-    modalState(false)
+export const closeModal = (e, modal) => {
+    modal.remove()
+    setModalState(false)
 }
 
-const modalState = (isOpen) => {
-    console.log(isOpen === true ? 'open' : 'close')
+const setModalState = (isOpen) => {
+    isOpen === true ? localStorage.setItem('modalState', 'isOpen') : localStorage.setItem('modalState', 'isClosed')
+}
+
+export const getModalState = () => {
+    const modalState = localStorage.getItem('modalState')
+    modalState === 'isOpen' ? openModal() : closeModal
 }

@@ -157,12 +157,13 @@ main {
 }
 
 .task__container .task__card .task__body .task__details {
-    min-width: 50%;
+    min-width: 55%;
 }
 
 .task__container .task__card .task__body .task__name {
     font-size: 1.5rem;
     font-weight: bolder;
+    text-transform: capitalize;
 }
 
 .task__container .task__card .task__body .task__date,
@@ -320,6 +321,7 @@ main {
     transform: translate(-50%, -50%);
     border-radius: 0.25rem;
     background-color: var(--primary-color);
+    z-index: 9999;
 }
 
 .modal__task-add {

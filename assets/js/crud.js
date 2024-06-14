@@ -1,14 +1,16 @@
-import { clear } from "./helpers.js"
+import { clearInput } from "./helpers.js"
+import { storageItems } from "./global-dom.js"
 const storageArray = []
 
 export const addTask = () => {
-    const storageItems = JSON.parse(localStorage.getItem('taskDetails'))
     if (storageArray.length === 0 && storageItems != null) {
-        JSON.parse(localStorage.getItem('taskDetails')).forEach(element => {
+        storageItems.forEach(element => {
             storageArray.push(element)
         })
     }
 
+
+    const forms = document.querySelectorAll('.form__task-container > form input, .form__task-container > form select');
     const taskName = document.querySelector('#task-name')
     const taskDate = document.querySelector('#task-date')
     const taskStartTime = document.querySelector('#task-start-time')
@@ -54,25 +56,38 @@ export const addTask = () => {
         'taskTier': taskTier,
         'taskStatus': 'pending'
     }
+    const errorStatus =  document.querySelectorAll('.input__error')
+
+    forms.forEach((element,i) => {
+        if (element.value === '' || element.value === 'Priority List') {
+            element.classList.add('input--error')
+            errorStatus[i].style.display = 'block'
+            errorStatus[i].innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Invalid Input'
+
+        }else{
+            element.classList.remove('input--error')
+            errorStatus[i].style.display = 'none'
+        }
+    });
+
+    if(Array.from(forms).some(form => form.value === '' || form.value === 'Priority List'))return;
 
     storageArray.push(items)
     localStorage.setItem('taskDetails', JSON.stringify(storageArray))
-    clear([taskName, taskDate, taskPriority])
+    clearInput([taskName, taskDate, taskPriority])
 }
 
 export const crudTask = (e, status) => {
-    const storageItems = JSON.parse(localStorage.getItem('taskDetails'))
     const index = storageItems.findIndex(x => x.taskName === e.target.closest('.task__details').querySelector('.task__name').textContent)
     storageItems[index].taskStatus = status
     localStorage.setItem('taskDetails', JSON.stringify(storageItems))
 }
 
 export const deleteTask = (e) => {
-    const storageItems = JSON.parse(localStorage.getItem('taskDetails'))
     const index = storageItems.findIndex(x => x.taskName === e.target.closest('.task__details').querySelector('.task__name').textContent)
 
     if (storageItems != null) {
-        JSON.parse(localStorage.getItem('taskDetails')).forEach((element, i) => {
+        storageItems.forEach((element, i) => {
             if (i === index) return;
             storageArray.push(element)
         })

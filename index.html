@@ -37,18 +37,7 @@
             </ul>
         </nav>
         <div class="task__container">
-            <!-- <div class="sort__container">
-                <p>Sort by:</p>
-                <select id="sort-type">
-                    <option value="priority">Priority</option>
-                    <option value="name">Name</option>
-                    <option value="date">Date</option>
-                </select>
-                <select id="sort-order">
-                    <option value="ascending">Ascending</option>
-                    <option value="descending">Descending</option>
-                </select>
-            </div> -->
+           <!-- Dynamic contents inserted here -->
         </div>
     </main>
 
@@ -60,32 +49,36 @@
             </div>
             <div class="modal__body">
                 <div class="form__task-container">
-                    <form action="">
+                    <form>
                         <div class="input__container">
                             <label for="task-name">Task Name</label>
                             <input type="text" id="task-name" placeholder="Enter task name">
+                            <p class="input__error"></p>
                         </div>
                         <div class="input__container">
                             <label for="task-date">Estimated Date of Completion</label>
                             <input type="date" id="task-date">
+                            <p class="input__error"></p>
                         </div>
                         <div class="input__container">
                             <label for="task-start-time">Time Start</label>
                             <input type="time" id="task-start-time">
+                            <p class="input__error"></p>
                         </div>
                         <div class="input__container">
                             <label for="task-end-time">Time End</label>
                             <input type="time" id="task-end-time">
+                            <p class="input__error"></p>
                         </div>
                         <div class="input__container">
                             <label for="priority__list">Level of priority</label>
                             <select name="" id="priority-list">
-                                <option selected disabled>Priority List</option>
+                                <option style="display: none;" selected disabled>Priority List</option>
                                 <option value="Urgent">Urgent</option>
                                 <option value="Important">Important</option>
                                 <option value="Non-urgent">Non-urgent</option>
-
                             </select>
+                            <p class="input__error"></p>
                         </div>
                     </form>
                 </div>
@@ -104,6 +97,7 @@
                     <p class="task__date">December 2, 2000</p>
                     <p class="task__time">11:00 - 12:00</p>
                     <p class="task__priority"><span></span>Important</p>
+                    <p class="task__near-deadline"></p>
                     <div class="task__buttons">
                         <button class="primary__btn"><i class="fa-solid fa-circle-check"></i> Done</button>
                         <button class="danger__btn"><i class="fa-solid fa-box-archive"></i> Archive</button>
@@ -125,6 +119,7 @@
                     <p class="task__name">Client Feedback</p>
                     <p class="task__date">December 2, 2000</p>
                     <p class="task__time">11:00 - 12:00</p>
+                    <p class="task__priority"><span></span>Important</p>
                     <div class="task__buttons">
                         <button class="primary__btn"><i class="fa-solid fa-recycle"></i> Restore</button>
                         <button class="danger__btn"><i class="fa-solid fa-trash-can"></i> Delete</button>
@@ -146,7 +141,7 @@
                     <p class="task__name">Client Feedback</p>
                     <p class="task__date">December 2, 2000</p>
                     <p class="task__time">11:00 - 12:00</p>
-
+                    <p class="task__priority"><span></span>Important</p>
                 </div>
                 <div class="task__status">
                     <div class="task__circle task__circle">

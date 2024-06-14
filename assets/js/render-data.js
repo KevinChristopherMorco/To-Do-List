@@ -1,21 +1,30 @@
 import { sortItemOrder } from "./sort-tasks.js"
-import { dateEl, taskWrapper, list, listItemNumber } from "./global-dom.js"
+import { dateEl, taskWrapper, list, listItemNumber, localDate, serverTime, storageItems } from "./global-dom.js"
 import { crudTask, deleteTask } from "./crud.js"
-import { checkURL, visualEmptyStorage } from "./helpers.js"
+import { checkActiveURL, emptyStorageNotice, checkTaskDeadline, setSortContainer, checkEmptyTasks } from "./helpers.js"
 import { getModalState } from "./modal.js"
 
-const dateObj = new Date()
-const UTCdate = new Date(dateObj.toISOString())
-const localDate = new Date(UTCdate.getTime());
-
-dateEl.textContent = `${localDate.toLocaleString('en-PH', { weekday: 'long' })}, ${localDate.getDate()} ${localDate.toLocaleString('en-PH', { month: 'short' })}`
+console.log()
+dateEl.textContent = localDate.toLocaleDateString('en-ph',
+    {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+    })
 
 
 export const displayNumberItems = () => {
-    const storageItems = JSON.parse(localStorage.getItem('taskDetails'))
     const status = ['pending', 'finished', 'archived']
 
+
+
     listItemNumber.forEach((listItem, i) => {
+        if (checkEmptyTasks(taskWrapper, storageItems)) {
+            listItem.textContent = '0'
+            return;
+        }
+
         if (i < status.length) {
             const filteredStorage = storageItems.filter(list => list.taskStatus === status[i]);
             listItem.textContent = filteredStorage.length;
@@ -26,22 +35,37 @@ export const displayNumberItems = () => {
 window.addEventListener('load', displayNumberItems)
 
 export const loadItems = (e) => {
-    const storageItems = JSON.parse(localStorage.getItem('taskDetails'))
-    const getActiveURL = localStorage.getItem('activeURL')
-    const index = window.location.href.indexOf('#')
+    getModalState()
 
-    list.querySelectorAll('li > a').forEach(element => {
+    if (checkEmptyTasks(taskWrapper, storageItems)) {
+        return;
+    }
+
+    const index = window.location.href.indexOf('#')
+    let getActiveURL = localStorage.getItem('activeURL')
+
+    list.querySelectorAll('li > a').forEach((element, i) => {
+        if (i === 0 && index === -1) {
+            element.closest('li').classList.add('active')
+            return
+        }
+
         if (element.href.slice(index + 1) === getActiveURL) {
             element.closest('li').classList.add('active')
         }
     })
 
-    setSortContainer()
-    getModalState()
-    checkTaskDeadline(storageItems)
+    let filteredStorage
+    if (index === -1) {
+        filteredStorage = storageItems.filter(storage => storage.taskStatus === 'pending')
+        getActiveURL = 'pending'
+    } else {
+        filteredStorage = storageItems.filter(storage => storage.taskStatus === getActiveURL)
+    }
 
-    const filteredStorage = storageItems.filter(x => x.taskStatus === getActiveURL)
-    visualEmptyStorage(filteredStorage)
+    setSortContainer(filteredStorage)
+    checkTaskDeadline(storageItems)
+    checkEmptyTasks(taskWrapper, filteredStorage)
     renderTask(e, getActiveURL, filteredStorage)
 }
 
@@ -56,6 +80,7 @@ export const renderTask = (e, type, storage) => {
     }
 
     let template = keyMap[type]
+
     if (template) {
         template = document.querySelector(template)
     }
@@ -63,43 +88,63 @@ export const renderTask = (e, type, storage) => {
     const sortedTasks = sortItemOrder(e, storage) === undefined ? storage.sort((a, b) => b.taskTier - a.taskTier) : sortItemOrder(e, storage)
     sortedTasks.forEach(task => {
         const templateClone = template.content.cloneNode(true)
+        //Common template
         templateClone.querySelector('.task__name').textContent = task.taskName
         templateClone.querySelector('.task__date').textContent = task.taskDate
         templateClone.querySelector('.task__time').textContent = `${task.taskStartTime} - ${task.taskEndTime}`
+        templateClone.querySelector('.task__priority').innerHTML = `<span></span>${task.taskPriority}`
+
+        const primaryBtn = templateClone.querySelector('.task__buttons .primary__btn')
+        const dangerBtn = templateClone.querySelector('.task__buttons .danger__btn')
+
+        const priorityColor = templateClone.querySelector('.task__priority')
+        const priorityMap = {
+            'Urgent': 'urgent',
+            'Important': 'important',
+            'Non-urgent': 'non-urgent'
+        }
+        console.log(priorityMap[priorityColor.textContent])
+
+        const priorityClass = priorityMap[priorityColor.textContent]
+
+        if (!priorityClass) {
+            throw new Error('No available color for the status')
+        }
+
+        priorityColor.classList.add(priorityClass)
+
+
         if (type === 'pending') {
-            templateClone.querySelector('.task__priority').innerHTML = `<span></span>${task.taskPriority}`
-            templateClone.querySelector('.task__buttons .primary__btn').addEventListener('click', (e) => crudTask(e, 'finished'))
-            templateClone.querySelector('.task__buttons .danger__btn').addEventListener('click', (e) => crudTask(e, 'archived'))
-            const priorityColor = templateClone.querySelector('.task__priority')
-            const priorityMap = {
-                'Urgent': 'urgent',
-                'Important': 'important',
-                'Non-urgent': 'non-urgent'
-            };
+            const taskDate = new Date(`${task.taskDate} ${task.taskEndTime}`)
+            console.log(-1800000 < (serverTime - taskDate),(serverTime - taskDate))
+            if (-1800000 < (serverTime - taskDate)) {
+                templateClone.querySelector('.task__card').classList.add('task__card--deadline')
+                templateClone.querySelector('.task__near-deadline').innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Crunch Time '
 
-            const priorityClass = priorityMap[priorityColor.textContent]
+            }
+            primaryBtn.addEventListener('click', (e) => crudTask(e, 'finished'))
+            dangerBtn.addEventListener('click', (e) => crudTask(e, 'archived'))
+        }
 
-            if (!priorityClass) {
-                throw new Error('No available color for the status')
+        if (type === 'archived') {
+            if (serverTime > new Date(task.taskDate)) {
+                primaryBtn.remove();
+            } else {
+                primaryBtn.addEventListener('click', (e) => crudTask(e, 'pending'));
             }
 
-            priorityColor.classList.add(priorityClass)
-        }
-        if (type === 'archived') {
-            templateClone.querySelector('.task__buttons .primary__btn').addEventListener('click', (e) => crudTask(e, 'pending'))
-            templateClone.querySelector('.task__buttons .danger__btn').addEventListener('click', deleteTask)
+            dangerBtn.addEventListener('click', deleteTask);
         }
         taskWrapper.appendChild(templateClone)
     })
 }
 
 export const loadItemTypes = (e) => {
-    const storageItems = JSON.parse(localStorage.getItem('taskDetails'))
     setTimeout(() => {
         const index = window.location.href.indexOf('#')
         const key = window.location.href.slice(index + 1)
 
-        visualEmptyStorage(storageItems)
+        checkEmptyTasks(taskWrapper, storageItems)
 
         const keyMap = {
             'pending': 'pending',
@@ -110,42 +155,9 @@ export const loadItemTypes = (e) => {
         const currentURL = keyMap[key]
 
         if (currentURL) {
-            checkURL(e, currentURL, storageItems)
+            checkActiveURL(e, currentURL, storageItems)
         }
 
     }, 200)
-}
-
-const checkTaskDeadline = (tasks) => {
-    const storageArray = []
-    const serverTime = new Date(localDate.toLocaleString('en-PH', {
-        weekday: 'short',
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false
-    }))
-
-    if (storageArray.length === 0 && tasks != null) {
-        JSON.parse(localStorage.getItem('taskDetails')).forEach((element, i) => {
-            const taskDate = new Date(`${element.taskDate} ${element.taskEndTime}`)
-            if (serverTime > taskDate && element.taskStatus === 'pending') {
-                element.taskStatus = 'archived'
-            }
-            storageArray.push(element)
-        })
-        localStorage.setItem('taskDetails', JSON.stringify(storageArray))
-    }
-}
-
-const setSortContainer = () => {
-    const sortTemplate = document.querySelector('#sort__template')
-    const clone = sortTemplate.content.cloneNode(true)
-
-    if (taskWrapper.querySelector('.sort__container') != null) return;
-    clone.querySelector('.sort__container').addEventListener('change', (e) => loadItemTypes(e))
-    taskWrapper.insertBefore(clone, taskWrapper.firstElementChild)
 }
 

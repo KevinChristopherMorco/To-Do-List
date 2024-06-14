@@ -214,7 +214,11 @@ main {
     background-color: #32CD32;
 }
 
-
+.task__container .task__card .task__body .task__near-deadline{
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: red;
+}
 
 
 .task__circle {
@@ -278,6 +282,10 @@ main {
     color: #8E060A;
 }
 
+.task__container .task__card.task__card--deadline{
+    border: 2px solid red;
+}
+
 .task__buttons {
     margin: 1rem 0;
     display: flex;
@@ -305,8 +313,8 @@ main {
     color: red;
 }
 
-.task__card--unfinished .task__buttons>button:nth-of-type(2):hover,
-.task__card--deleted .task__buttons>button:nth-of-type(2):hover {
+.task__card--unfinished .task__buttons>.danger__btn:hover,
+.task__card--deleted .task__buttons>.danger__btn:hover {
     border: 1px solid #ED5E68;
     background-color: #ED5E68;
     color: var(--white);
@@ -354,11 +362,21 @@ main {
 .modal__task-add .modal__body .form__task-container>form>.input__container>input,
 .modal__task-add .modal__body .form__task-container>form>.input__container>select {
     width: 100%;
-    margin: 0.5rem 0;
+    margin: 0.3rem 0 0.25rem;
     padding: 0.5rem;
     display: block;
     border-radius: 0.25rem;
     border: 1px solid var(--black);
+}
+
+.modal__task-add .modal__body .form__task-container>form>.input__container>input.input--error,.modal__task-add .modal__body .form__task-container>form>.input__container>select.input--error{
+    border: 1px solid red;
+}
+
+.modal__task-add .modal__body .form__task-container>form> .input__container .input__error{
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: red;
 }
 
 .modal__footer {

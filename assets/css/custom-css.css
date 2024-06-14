@@ -6,6 +6,13 @@
     --accent-color: hsl(158, 82%, 39%);
     --primary-text: hsl(0, 0%, 0%);
     --secondary-text: hsl(136, 9%, 61%);
+    --red: hsl(0, 100%, 50%);
+    --orange: hsl(16, 100%, 50%);
+    --light-yellow : hsl(39, 100%, 50%);
+    --light-green : hsl(120, 61%, 50%);
+    --dark-orange: hsl(16, 100%, 40%);
+    --dark-green: hsl(135, 100%, 27%);
+    --dark-red: hsl(358, 92%, 29%);
     --white: hsl(0, 0%, 100%);
     --gray: hsl(160, 6%, 81%);
     --black: hsl(0, 0%, 0%);
@@ -137,16 +144,18 @@ main {
 
 .sort__container > select{
     padding: 0.1rem;
-    border: 1px solid var(--primary-text);
+    border: 2px solid var(--gray);
+  }
+
+  .sort__container > select:focus{
+    border: 2px solid var(--accent-color);
   }
 
 .task__container .task__card {
-    padding: 1rem;
+    padding: 1.25rem;
     margin: 1rem 0;
-    /* display: flex;
-    justify-content: space-between;
-    align-items: center; */
     border-radius: 0.5rem;
+    box-shadow: -1px 1px 5px 2px var(--gray);
     background-color: var(--secondary-color);
 }
 
@@ -157,7 +166,8 @@ main {
 }
 
 .task__container .task__card .task__body .task__details {
-    min-width: 55%;
+    min-width: 60%;
+    max-width: 60%;
 }
 
 .task__container .task__card .task__body .task__name {
@@ -183,15 +193,15 @@ main {
 }
 
 .task__container .task__card .task__body .task__priority.urgent {
-    color: red;
+    color: var(--red);
 }
 
 .task__container .task__card .task__body .task__priority.important {
-    color: #FFA500;
+    color: var(--light-yellow);
 }
 
 .task__container .task__card .task__body .task__priority.non-urgent {
-    color: #32CD32;
+    color: var(--light-green);
 }
 
 .task__container .task__card .task__body .task__priority>span {
@@ -203,21 +213,21 @@ main {
 }
 
 .task__container .task__card .task__body .task__priority.urgent>span {
-    background-color: red;
+    background-color: var(--red);
 }
 
 .task__container .task__card .task__body .task__priority.important>span {
-    background-color: #FFA500;
+    background-color: var(--light-yellow);
 }
 
 .task__container .task__card .task__body .task__priority.non-urgent>span {
-    background-color: #32CD32;
+    background-color: var(--light-green);
 }
 
 .task__container .task__card .task__body .task__near-deadline{
     font-size: 0.75rem;
     font-weight: bold;
-    color: red;
+    color: var(--red);
 }
 
 
@@ -244,46 +254,46 @@ main {
 }
 
 .task__card--unfinished .task__circle {
-    border: 2px solid orangered;
+    border: 2px solid var(--orange);
     background-color: #FFDACC;
 }
 
 .task__card--unfinished .task__circle>p {
-    border: 2px solid orangered;
+    border: 2px solid var(--orange);
     background-color: #FFA684;
-    color: #CC3800;
+    color: var(--dark-orange);
 
 }
 
 .task__card--finished .task__circle {
-    border: 2px solid #00F73E;
+    border: 2px solid var(--light-green);
     background-color: #D2FFDE;
 }
 
 .task__card--finished .task__circle>p {
-    border: 2px solid #00F73E;
+    border: 2px solid var(--light-green);
     background-color: #A6FFBC;
-    color: #008822;
+    color: var(--dark-green);
 }
 
 .task__card--finished .task__name{
     text-decoration: line-through;
-    color: #008822;
+    color: var(--dark-green);
 }
 
 .task__card--deleted .task__circle {
-    border: 2px solid #CE090E;
+    border: 2px solid var(--red);
     background-color: #FCADAF;
 }
 
 .task__card--deleted .task__circle>p {
-    border: 2px solid #CE090E;
+    border: 2px solid var(--red);
     background-color: #FA7073;
-    color: #8E060A;
+    color: var(--dark-red);
 }
 
 .task__container .task__card.task__card--deadline{
-    border: 2px solid red;
+    border: 2px solid var(--red);
 }
 
 .task__buttons {
@@ -308,9 +318,9 @@ main {
 }
 
 .task__buttons>button.danger__btn {
-    border: 1px solid red;
+    border: 1px solid var(--red);
     background-color: var(--white);
-    color: red;
+    color: var(--red);
 }
 
 .task__card--unfinished .task__buttons>.danger__btn:hover,
@@ -370,13 +380,13 @@ main {
 }
 
 .modal__task-add .modal__body .form__task-container>form>.input__container>input.input--error,.modal__task-add .modal__body .form__task-container>form>.input__container>select.input--error{
-    border: 1px solid red;
+    border: 1px solid var(--red);
 }
 
 .modal__task-add .modal__body .form__task-container>form> .input__container .input__error{
     font-size: 0.75rem;
     font-weight: bold;
-    color: red;
+    color: var(--red);
 }
 
 .modal__footer {

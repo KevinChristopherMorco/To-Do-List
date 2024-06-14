@@ -116,11 +116,9 @@ export const renderTask = (e, type, storage) => {
 
         if (type === 'pending') {
             const taskDate = new Date(`${task.taskDate} ${task.taskEndTime}`)
-            console.log(-1800000 < (serverTime - taskDate),(serverTime - taskDate))
             if (-1800000 < (serverTime - taskDate)) {
                 templateClone.querySelector('.task__card').classList.add('task__card--deadline')
-                templateClone.querySelector('.task__near-deadline').innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Crunch Time '
-
+                templateClone.querySelector('.task__near-deadline').innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> Down to the Wire <br>(${Math.abs(serverTime.getMinutes() - task.taskEndTime.slice(3))} mins left) `
             }
             primaryBtn.addEventListener('click', (e) => crudTask(e, 'finished'))
             dangerBtn.addEventListener('click', (e) => crudTask(e, 'archived'))

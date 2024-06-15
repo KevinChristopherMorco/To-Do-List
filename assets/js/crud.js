@@ -1,5 +1,5 @@
 import { clearInput } from "./helpers.js"
-import { storageItems } from "./global-dom.js"
+import { serverTime, storageItems } from "./global-dom.js"
 const storageArray = []
 
 export const addTask = () => {
@@ -77,15 +77,22 @@ export const addTask = () => {
     clearInput([taskName, taskDate, taskPriority])
 }
 
-export const crudTask = (e, status) => {
+export const crudTask = (e,date, status) => {
     const index = storageItems.findIndex(x => x.taskName === e.target.closest('.task__details').querySelector('.task__name').textContent)
+    if(serverTime() > date){
+        console.error('Invalid Action')
+        return;
+    }
     storageItems[index].taskStatus = status
     localStorage.setItem('taskDetails', JSON.stringify(storageItems))
 }
 
-export const deleteTask = (e) => {
+export const deleteTask = (e,date) => {
     const index = storageItems.findIndex(x => x.taskName === e.target.closest('.task__details').querySelector('.task__name').textContent)
-
+    if(serverTime() > date){
+        console.error('Invalid Action')
+        return;
+    }
     if (storageItems != null) {
         storageItems.forEach((element, i) => {
             if (i === index) return;

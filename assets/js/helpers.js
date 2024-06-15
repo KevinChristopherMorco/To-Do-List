@@ -1,5 +1,5 @@
 import { taskWrapper, list,serverTime, storageItems } from "./global-dom.js"
-import {renderTask, loadItemTypes } from "./render-data.js"
+import {renderTask, loadItemTypes, displayNumberItems } from "./render-data.js"
 
 export const clearCards = () => {
     const cards = taskWrapper.querySelectorAll('.task__card')
@@ -31,16 +31,16 @@ const handleListClick = (e) => {
 
 list.addEventListener('click', (e) => handleListClick(e))
 
-export const checkActiveURL = (e, status, storageItems) => {
+export const checkActiveURL = (e, currentURL, storageItems) => {
     if (checkEmptyTasks(taskWrapper,storageItems)) {
         return;
     }
 
-    const filteredStorage = storageItems.filter(x => x.taskStatus === status)
-    localStorage.setItem('activeURL', status)
+    const filteredStorage = storageItems.filter(x => x.taskStatus === currentURL)
+    localStorage.setItem('activeURL', currentURL)
     setSortContainer(filteredStorage)
     checkEmptyTasks(taskWrapper,filteredStorage)
-    renderTask(e, status, filteredStorage)
+    renderTask(e, currentURL, filteredStorage)
 }
 
 export const checkEmptyTasks = (element,storage) => {
@@ -59,14 +59,15 @@ export const checkEmptyTasks = (element,storage) => {
 export const checkTaskDeadline = (tasks) => {
     const storageArray = []
     if (storageArray.length === 0 && tasks != null) {
-        storageItems.forEach((element, i) => {
+        storageItems.forEach(element => {
             const taskDate = new Date(`${element.taskDate} ${element.taskEndTime}`)
-            if (serverTime > taskDate && element.taskStatus === 'pending') {
+            if (serverTime() > taskDate && element.taskStatus === 'pending') {
                 element.taskStatus = 'archived'
             }
             storageArray.push(element)
         })
         localStorage.setItem('taskDetails', JSON.stringify(storageArray))
+        displayNumberItems()
     }
 }
 
@@ -94,4 +95,14 @@ export const setSortContainer = (storage) => {
 
     clone.querySelector('.sort__container').addEventListener('change', (e) => loadItemTypes(e))
     taskWrapper.insertBefore(clone, taskWrapper.firstElementChild)
+}
+
+export const customMap = (elements,value) => {
+    const obj = {}
+    elements.forEach((element,i)=> {
+        if(i % 2 === 0){
+          obj[element] = elements[i + 1]
+        }
+    })
+    return obj[value]
 }

@@ -10,6 +10,7 @@
     --orange: hsl(16, 100%, 50%);
     --light-yellow : hsl(39, 100%, 50%);
     --light-green : hsl(120, 61%, 50%);
+    --light-red: hsl(0, 57%, 97%);
     --dark-orange: hsl(16, 100%, 40%);
     --dark-green: hsl(135, 100%, 27%);
     --dark-red: hsl(358, 92%, 29%);
@@ -293,7 +294,8 @@ main {
 }
 
 .task__container .task__card.task__card--deadline{
-    border: 2px solid var(--red);
+    border: 1px solid var(--red);
+    background-color: var(--light-red);
 }
 
 .task__buttons {

@@ -1,23 +1,22 @@
 import { clearCards} from "./helpers.js"
 import { taskWrapper } from "./global-dom.js"
 import { loadItemTypes, renderTask } from "./render-data.js"
-// const sortType = taskWrapper?.querySelector('.sort__container')
 
 const sortItemType = (storage) => {
     clearCards()
     const typeValue = taskWrapper.querySelector('#sort-type')
 
     if (storage === null) return;
+    const sortType = JSON.parse(localStorage.getItem('sortType'));
 
-    switch (typeValue.value) {
+    setSortState(typeValue,sortType,'sortType')
+
+    switch (sortType) {
         case 'name':
-            localStorage.setItem('sortType', 'name')
             return storage.sort((a, b) => a.taskName.localeCompare(b.taskName))
         case 'priority':
-            localStorage.setItem('sortType', 'priority')
             return storage.sort((a, b) => a.taskTier - b.taskTier)
         case 'date':
-            localStorage.setItem('sortType', 'date')
             return storage.sort((a, b) => new Date(a.taskDate) - new Date(b.taskDate))
         default:
             break;
@@ -28,13 +27,16 @@ export const sortItemOrder = (e,storage) => {
     clearCards()
     const orderValue = taskWrapper.querySelector('#sort-order')
     if(orderValue === null) return;
-    switch (orderValue.value) {
+
+    const sortOrder = JSON.parse(localStorage.getItem('sortOrder'));
+
+    setSortState(orderValue,sortOrder,'sortOrder')
+
+    switch (sortOrder) {
         case 'ascending':
-            localStorage.setItem('sortOrder', 'ascending')
             return sortItemType(storage)
             break;
         case 'descending':
-            localStorage.setItem('sortOrder', 'descending')
             return sortItemType(storage).reverse()
             break;
         default:
@@ -42,7 +44,17 @@ export const sortItemOrder = (e,storage) => {
     }
 }
 
-// sortType.addEventListener('change', (e) => loadItemTypes(e))
+const setSortState = (element,key,name) => {
+    [...element.options].forEach(x => {
+        if(x.value === key){
+            x.setAttribute('selected', true)
+        }
+    })
+  
+    element.addEventListener('change' , (e) => {
+        localStorage.setItem(name, JSON.stringify(element.value))
+    })
+}
 
 
 

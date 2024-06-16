@@ -21,9 +21,7 @@ export const displayNumberItems = () => {
             return;
         }
 
-
         if (i < status.length) {
-            console.log(storageItems)
             const filteredStorage = storageItems.filter(list => list.taskStatus === status[i]);
             listItem.textContent = filteredStorage.length;
         }

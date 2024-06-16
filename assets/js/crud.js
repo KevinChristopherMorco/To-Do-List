@@ -1,4 +1,4 @@
-import { clearInput } from "./helpers.js"
+import { clearInput, customMap } from "./helpers.js"
 import { serverTime, storageItems } from "./global-dom.js"
 const storageArray = []
 
@@ -8,7 +8,6 @@ export const addTask = () => {
             storageArray.push(element)
         })
     }
-
 
     const forms = document.querySelectorAll('.form__task-container > form input, .form__task-container > form select');
     const taskName = document.querySelector('#task-name')
@@ -28,23 +27,9 @@ export const addTask = () => {
         year:'numeric'
     })
 
-    let taskTier
-    switch (taskPriority.value) {
-        case 'Urgent':
-            taskTier = 1
-            break;
-
-        case 'Important':
-            taskTier = 2
-            break;
-
-        case 'Non-urgent':
-            taskTier = 3
-            break;
-
-        default:
-            break;
-    }
+    
+    const taskTier = customMap(['Urgent', 1, 'Important',   2, 'Non-urgent',  3], taskPriority.value)
+    
 
     const items = {
         'id': id,
@@ -75,6 +60,7 @@ export const addTask = () => {
     storageArray.push(items)
     localStorage.setItem('taskDetails', JSON.stringify(storageArray))
     clearInput([taskName, taskDate, taskPriority])
+    location.reload()
 }
 
 export const crudTask = (e,date, status) => {
@@ -85,6 +71,7 @@ export const crudTask = (e,date, status) => {
     }
     storageItems[index].taskStatus = status
     localStorage.setItem('taskDetails', JSON.stringify(storageItems))
+    location.reload()
 }
 
 export const deleteTask = (e,date) => {
@@ -100,4 +87,5 @@ export const deleteTask = (e,date) => {
         })
     }
     localStorage.setItem('taskDetails', JSON.stringify(storageArray))
+    location.reload()
 }

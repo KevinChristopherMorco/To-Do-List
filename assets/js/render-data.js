@@ -80,14 +80,15 @@ export const renderTask = (e, currentURL, storage) => {
         const templateClone = template.content.cloneNode(true)
         //Common template
         templateClone.querySelector('.task__name').textContent = task.taskName
-        templateClone.querySelector('.task__date').textContent = task.taskDate
+        templateClone.querySelector('.task__start-date').textContent = task.taskStartDate
+        templateClone.querySelector('.task__end-date').textContent = task.taskEndDate
         templateClone.querySelector('.task__time').textContent = `${task.taskStartTime} - ${task.taskEndTime}`
         templateClone.querySelector('.task__priority').innerHTML = `<span></span>${task.taskPriority}`
 
         const primaryBtn = templateClone.querySelector('.task__buttons .primary__btn')
         const dangerBtn = templateClone.querySelector('.task__buttons .danger__btn')
 
-        const taskDate = new Date(`${task.taskDate} ${task.taskEndTime}`)
+        const taskDate = new Date(`${task.taskEndDate} ${task.taskEndTime}`)
 
         const priorityColor = templateClone.querySelector('.task__priority')
         const priorityClass = customMap(['Urgent', 'urgent','Important','important','Non-urgent', 'non-urgent'],priorityColor.textContent)

@@ -60,7 +60,7 @@ export const checkTaskDeadline = (tasks) => {
     const storageArray = []
     if (storageArray.length === 0 && tasks != null) {
         storageItems.forEach(element => {
-            const taskDate = new Date(`${element.taskDate} ${element.taskEndTime}`)
+            const taskDate = new Date(`${element.taskEndDate} ${element.taskEndTime}`)
             if (serverTime() > taskDate && element.taskStatus === 'pending') {
                 element.taskStatus = 'archived'
             }

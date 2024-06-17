@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To Do List</title>
     <link rel="stylesheet" href="assets/css/custom-css.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/favicon.png">
+
     <script src="https://kit.fontawesome.com/eacd88b6a6.js" crossorigin="anonymous"></script>
 
 </head>
@@ -37,7 +39,7 @@
             </ul>
         </nav>
         <div class="task__container">
-           <!-- Dynamic contents inserted here -->
+            <!-- Dynamic contents inserted here -->
         </div>
     </main>
 
@@ -56,13 +58,18 @@
                             <p class="input__error"></p>
                         </div>
                         <div class="input__container">
-                            <label for="task-date">Estimated Date of Completion</label>
-                            <input type="date" id="task-date">
+                            <label for="task-start-date">Starting Date</label>
+                            <input type="date" id="task-start-date">
                             <p class="input__error"></p>
                         </div>
                         <div class="input__container">
                             <label for="task-start-time">Time Start</label>
                             <input type="time" id="task-start-time">
+                            <p class="input__error"></p>
+                        </div>
+                        <div class="input__container">
+                            <label for="task-end-date">End Date</label>
+                            <input type="date" id="task-end-date">
                             <p class="input__error"></p>
                         </div>
                         <div class="input__container">
@@ -94,7 +101,11 @@
             <div class="task__body">
                 <div class="task__details">
                     <p class="task__name">Client Feedback</p>
-                    <p class="task__date">December 2, 2000</p>
+                    <div class="task__date-container">
+                        <p class="task__date task__start-date">December 2, 2000</p>
+                        <p>-</p>
+                        <p class="task__date task__end-date">December 2, 2000</p>
+                    </div>
                     <p class="task__time">11:00 - 12:00</p>
                     <p class="task__priority"><span></span>Important</p>
                     <p class="task__near-deadline"></p>
@@ -117,7 +128,11 @@
             <div class="task__body">
                 <div class="task__details">
                     <p class="task__name">Client Feedback</p>
-                    <p class="task__date">December 2, 2000</p>
+                    <div class="task__date-container">
+                        <p class="task__date task__start-date">December 2, 2000</p>
+                        <p>-</p>
+                        <p class="task__date task__end-date">December 2, 2000</p>
+                    </div>
                     <p class="task__time">11:00 - 12:00</p>
                     <p class="task__priority"><span></span>Important</p>
                     <div class="task__buttons">
@@ -139,7 +154,11 @@
             <div class="task__body">
                 <div class="task__details">
                     <p class="task__name">Client Feedback</p>
-                    <p class="task__date">December 2, 2000</p>
+                    <div class="task__date-container">
+                        <p class="task__date task__start-date">December 2, 2000</p>
+                        <p>-</p>
+                        <p class="task__date task__end-date">December 2, 2000</p>
+                    </div>
                     <p class="task__time">11:00 - 12:00</p>
                     <p class="task__priority"><span></span>Important</p>
                 </div>
@@ -173,6 +192,27 @@
             </select>
         </div>
     </template>
+
+    <footer>
+        <div class="footer__container">
+          <div class="footer__text-container">
+            <p>Creating awesome things!</p>
+            <p>Crafted by: Kevin Christopher Morco</p>
+          </div>
+          <div class="icon__container">
+            <ul>
+              <li><a href="https://github.com/KevinChristopherMorco" target="__blank"><i
+                    class="fa-brands fa-github"></i></a></li>
+              <li><a href="https://www.linkedin.com/in/kevin-christopher-morco-a9a361289/" target="__blank"><i
+                    class="fa-brands fa-linkedin"></i></a></li>
+              <li><a href="https://discordapp.com/users/kevinnnn02" target="__blank"><i
+                    class="fa-brands fa-discord"></i></a></li>
+              <li><a href="https://www.facebook.com/kevin.morco.5/" target="__blank">
+                  <i class="fa-brands fa-facebook-messenger"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </footer>
 
     <script type="module" src="assets/js/custom-js.js"></script>
 </body>

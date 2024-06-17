@@ -8,8 +8,8 @@
     --secondary-text: hsl(136, 9%, 61%);
     --red: hsl(0, 100%, 50%);
     --orange: hsl(16, 100%, 50%);
-    --light-yellow : hsl(39, 100%, 50%);
-    --light-green : hsl(120, 61%, 50%);
+    --light-yellow: hsl(39, 100%, 50%);
+    --light-green: hsl(120, 61%, 50%);
     --light-red: hsl(0, 57%, 97%);
     --dark-orange: hsl(16, 100%, 40%);
     --dark-green: hsl(135, 100%, 27%);
@@ -18,6 +18,7 @@
     --gray: hsl(160, 6%, 81%);
     --black: hsl(0, 0%, 0%);
 
+    --footer: hsl(274, 82%, 60%);
     --font-family: "Poppins", sans-serif;
 }
 
@@ -35,7 +36,8 @@ html {
 
 body {
     min-height: 100%;
-    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 header {
@@ -43,6 +45,10 @@ header {
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+main {
+    flex: 1;
 }
 
 .date-info__container>p {
@@ -96,7 +102,7 @@ nav>ul>li {
 }
 
 
-nav>ul>li>a{
+nav>ul>li>a {
     width: 100%;
     padding: 0.5rem 0;
     display: flex;
@@ -116,10 +122,11 @@ nav>ul>li>a>span {
 }
 
 nav>ul>li.active {
+    font-weight: 600;
     border-bottom: 2px solid var(--accent-color);
 }
 
-nav>ul>li.active>a > span {
+nav>ul>li.active>a>span {
     background-color: var(--accent-color);
     color: var(--secondary-color);
 }
@@ -135,22 +142,22 @@ main {
 .sort__container {
     width: 90%;
     display: flex;
-    justify-content:space-around;
+    justify-content: space-around;
     align-items: center;
 }
 
-.sort__container > p{
-  font-weight: 600;
+.sort__container>p {
+    font-weight: 600;
 }
 
-.sort__container > select{
+.sort__container>select {
     padding: 0.1rem;
     border: 2px solid var(--gray);
-  }
+}
 
-  .sort__container > select:focus{
+.sort__container>select:focus {
     border: 2px solid var(--accent-color);
-  }
+}
 
 .task__container .task__card {
     padding: 1.25rem;
@@ -167,8 +174,7 @@ main {
 }
 
 .task__container .task__card .task__body .task__details {
-    min-width: 60%;
-    max-width: 60%;
+    width: 80%;
 }
 
 .task__container .task__card .task__body .task__name {
@@ -178,8 +184,9 @@ main {
 }
 
 .task__container .task__card .task__body .task__date,
-.task__container .task__card .task__body .task__time {
-    font-size: 0.9rem;
+.task__container .task__card .task__body .task__time,
+.task__date-container {
+    font-size: 0.8rem;
     color: var(--secondary-text);
 }
 
@@ -225,7 +232,7 @@ main {
     background-color: var(--light-green);
 }
 
-.task__container .task__card .task__body .task__near-deadline{
+.task__container .task__card .task__body .task__near-deadline {
     font-size: 0.75rem;
     font-weight: bold;
     color: var(--red);
@@ -277,7 +284,7 @@ main {
     color: var(--dark-green);
 }
 
-.task__card--finished .task__name{
+.task__card--finished .task__name {
     text-decoration: line-through;
     color: var(--dark-green);
 }
@@ -293,12 +300,13 @@ main {
     color: var(--dark-red);
 }
 
-.task__container .task__card.task__card--deadline{
+.task__container .task__card.task__card--deadline {
     border: 1px solid var(--red);
     background-color: var(--light-red);
 }
 
 .task__buttons {
+    width: 75%;
     margin: 1rem 0;
     display: flex;
     justify-content: space-between;
@@ -314,7 +322,7 @@ main {
 }
 
 
- .task__buttons>button.primary__btn{
+.task__buttons>button.primary__btn {
     background-color: var(--accent-color);
     color: var(--white);
 }
@@ -331,6 +339,13 @@ main {
     background-color: #ED5E68;
     color: var(--white);
 }
+
+.task__date-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 
 .modal__task-add {
     height: 100%;
@@ -381,11 +396,12 @@ main {
     border: 1px solid var(--black);
 }
 
-.modal__task-add .modal__body .form__task-container>form>.input__container>input.input--error,.modal__task-add .modal__body .form__task-container>form>.input__container>select.input--error{
+.modal__task-add .modal__body .form__task-container>form>.input__container>input.input--error,
+.modal__task-add .modal__body .form__task-container>form>.input__container>select.input--error {
     border: 1px solid var(--red);
 }
 
-.modal__task-add .modal__body .form__task-container>form> .input__container .input__error{
+.modal__task-add .modal__body .form__task-container>form>.input__container .input__error {
     font-size: 0.75rem;
     font-weight: bold;
     color: var(--red);
@@ -422,4 +438,190 @@ main {
     font-size: 1.25rem;
     font-weight: 500;
     font-style: oblique;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--footer);
+}
+
+.footer__container {
+    padding: 1.5rem;
+    text-align: center;
+    color: var(--white);
+}
+
+.footer__container .footer__text-container>p {
+    padding: 0.5rem 0;
+}
+
+.footer__container .footer__text-container>p:nth-of-type(1) {
+    font-size: 1.25rem;
+    font-weight: 500;
+    font-style: oblique;
+}
+
+.footer__container .footer__text-container>p:nth-of-type(2) {
+    font-size: 1rem;
+}
+
+
+.footer__container .icon__container {
+    padding: 1rem 0;
+}
+
+.footer__container .icon__container>ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.footer__container .icon__container>ul>li {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+}
+
+.footer__container .icon__container>ul>li>a {
+    color: var(--white)
+}
+
+.footer__container .icon__container>ul>li>a>i {
+    font-size: 1.5rem;
+}
+
+@media only screen and (min-width:300px) {
+    .task__date-container {
+        width: 97%;
+    }
+
+}
+
+@media only screen and (min-width:400px) {
+    .task__container .task__card .task__body .task__details {
+        width: 75%;
+    }
+}
+
+@media only screen and (min-width:700px) {
+    header,main{
+        width: 60%;
+        margin: 0 auto;
+    }
+
+    .sort__container {
+        width: 70%;
+    }
+
+    .task__container .task__card .task__body .task__details {
+        width: 60%;
+    }
+
+    .task__circle {
+        height: 65px;
+        width: 65px;
+    }
+
+    .task__circle>p {
+        width: 90px;
+        font-size: 0.75rem;
+        rotate: -10deg;
+    }
+}
+
+@media only screen and (min-width:1200px) {
+    header,main{
+        width: 40%;
+        margin: 0 auto;
+    }
+
+    header{
+        justify-content: space-between;
+    }
+
+    .task-add__container {
+        width: 30%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .task-add__container>button {
+        width: 70%;
+    }
+
+    .sort__container {
+        width: 60%;
+        justify-content: space-between;
+    }
+
+    nav>ul {
+        justify-content: space-between;
+    }
+
+    nav>ul>li>a {
+        font-size: 1rem;
+     }
+ 
+     nav>ul>li>a>span {
+         width: 20%;
+     }
+
+    .task__container .task__card .task__body .task__details {
+        width: 50%;
+    }
+}
+
+@media only screen and (min-width:1700px) {
+    header,main{
+        width: 35%;
+        margin: 0 auto;
+    }
+
+    .sort__container {
+        width: 50%;
+    }
+
+    .task__circle {
+        height: 90px;
+        width: 90px;
+    }
+
+    .task__circle>p {
+        width: 120px;
+        font-size: 1rem;
+        rotate: -10deg;
+    }
+
+    .task__container .task__card .task__body .task__details {
+        width: 60%;
+    }
+
+    .task__container .task__card .task__body .task__name {
+        font-size: 2rem;
+    }
+
+    .task__container .task__card .task__body .task__date, .task__container .task__card .task__body .task__time, .task__date-container {
+        font-size: 1.25rem;
+        color: var(--secondary-text);
+    }
+
+    .task__container .task__card .task__body .task__priority {
+        font-size: 1.25rem;
+    }
+
+    .task__buttons {
+        width: 70%;
+    }
+
+    .task__buttons>button {
+        padding: 0.5rem;
+        font-size: 1.25rem;
+        border: none;
+        border-radius: 0.25rem;
+        outline: none;
+        cursor: pointer;
+    }
 }

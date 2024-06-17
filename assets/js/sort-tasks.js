@@ -7,7 +7,7 @@ const sortItemType = (storage) => {
     const typeValue = taskWrapper.querySelector('#sort-type')
 
     if (storage === null) return;
-    const sortType = JSON.parse(localStorage.getItem('sortType'));
+    const sortType = localStorage.getItem('sortType');
 
     setSortState(typeValue,sortType,'sortType')
 
@@ -28,7 +28,7 @@ export const sortItemOrder = (e,storage) => {
     const orderValue = taskWrapper.querySelector('#sort-order')
     if(orderValue === null) return;
 
-    const sortOrder = JSON.parse(localStorage.getItem('sortOrder'));
+    const sortOrder = localStorage.getItem('sortOrder');
 
     setSortState(orderValue,sortOrder,'sortOrder')
 

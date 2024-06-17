@@ -20,16 +20,32 @@ export const addTask = () => {
     storageArray.length === 0 ? id = 1 : id = storageItems[storageItems.length - 1].id + 1
 
     const convertDate = new Date(taskDate.value)
-    const convertTaskDate = convertDate.toLocaleString('en-PH', {
+    let convertTaskDate = convertDate.toLocaleString('en-PH', {
         weekday: 'short',
-        day:'numeric',
+        day: 'numeric',
         month: 'short',
-        year:'numeric'
+        year: 'numeric',
     })
 
-    
-    const taskTier = customMap(['Urgent', 1, 'Important',   2, 'Non-urgent',  3], taskPriority.value)
-    
+    const taskTier = customMap(['Urgent', 1, 'Important', 2, 'Non-urgent', 3], taskPriority.value)
+
+    // // If end time is before start time and it's after midnight (i.e., endHour < startHour)
+    // if (taskEndTime.value, taskStartTime.value, taskEndTime.value < taskStartTime.value) {
+    //     // Increment the selected date by 1 day
+    //     convertDate.setDate(convertDate.getDate() + 1);
+    //     convertDate.getFullYear();
+    //     String(convertDate.getMonth() + 1).padStart(2, '0');
+    //     String(convertDate.getDate()).padStart(2, '0');
+
+    //     // Update date input to the next day
+    //     convertTaskDate = convertDate.toLocaleString('en-PH', {
+    //         weekday: 'short',
+    //         day: 'numeric',
+    //         month: 'short',
+    //         year: 'numeric',
+    //     })
+    // }
+
 
     const items = {
         'id': id,
@@ -41,31 +57,31 @@ export const addTask = () => {
         'taskTier': taskTier,
         'taskStatus': 'pending'
     }
-    const errorStatus =  document.querySelectorAll('.input__error')
+    const errorStatus = document.querySelectorAll('.input__error')
 
-    forms.forEach((element,i) => {
+    forms.forEach((element, i) => {
         if (element.value === '' || element.value === 'Priority List') {
             element.classList.add('input--error')
             errorStatus[i].style.display = 'block'
             errorStatus[i].innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Invalid Input'
 
-        }else{
+        } else {
             element.classList.remove('input--error')
             errorStatus[i].style.display = 'none'
         }
     });
 
-    if(Array.from(forms).some(form => form.value === '' || form.value === 'Priority List'))return;
+    if (Array.from(forms).some(form => form.value === '' || form.value === 'Priority List')) return;
 
     storageArray.push(items)
     localStorage.setItem('taskDetails', JSON.stringify(storageArray))
     clearInput([taskName, taskDate, taskPriority])
-    location.reload()
+    // location.reload()
 }
 
-export const crudTask = (e,date, status) => {
+export const crudTask = (e, date, status) => {
     const index = storageItems.findIndex(x => x.taskName === e.target.closest('.task__details').querySelector('.task__name').textContent)
-    if(serverTime() > date){
+    if (serverTime() > date) {
         console.error('Invalid Action')
         return;
     }
@@ -74,9 +90,9 @@ export const crudTask = (e,date, status) => {
     location.reload()
 }
 
-export const deleteTask = (e,date) => {
+export const deleteTask = (e, date) => {
     const index = storageItems.findIndex(x => x.taskName === e.target.closest('.task__details').querySelector('.task__name').textContent)
-    if(serverTime() > date){
+    if (serverTime() > date) {
         console.error('Invalid Action')
         return;
     }

@@ -27,7 +27,6 @@ export const serverTime = () => {
         minute: '2-digit',
         hour12: false
     }))
-    
     return serverTime
 }
 
